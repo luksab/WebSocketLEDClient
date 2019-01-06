@@ -128,13 +128,13 @@ function init() {
 function testWebSocket() {
     websocket = new WebSocket(wsUri);
     websocket.binaryType = "arraybuffer";
-    websocket.onopen = function (evt) { onOpen(evt) };
-    websocket.onclose = function (evt) { onClose(evt) };
-    websocket.onmessage = function (evt) { onMessage(evt) };
-    websocket.onerror = function (evt) { onError(evt) };
+    websocket.onopen = function (evt) { onOpen(evt); };
+    websocket.onclose = function (evt) { onClose(evt); };
+    websocket.onmessage = function (evt) { onMessage(evt); };
+    websocket.onerror = function (evt) { onError(evt); };
 }
 
-async function onOpen(evt) {
+function onOpen(evt) {
     console.log("CONNECTED");
     sending = true;
 }
@@ -152,7 +152,7 @@ function draw() {
         var thiccnes = (width - 20) / spectrum.length;
         for (var i = 0; i < spectrum.length; i++) {
             var s = spectrum[i];
-            ctx.fillStyle = 'blue'//hsl(map(i, 0, 200, 0, 360), 80, 50);
+            ctx.fillStyle = 'blue';
             ctx.fillRect(i * thiccnes, height / 3 - s * (height / 1000), thiccnes, s * (height / 1000));
             //ctx.fillRect(i * 2, 300, 2, s);
         }
