@@ -258,7 +258,7 @@ var handleSuccess = function (stream) {
         if (self.rms > rmsMean*1.1 + 3 && self.rms > rmsMeanLong) {
             console.log("loud");
             pulse = true;
-            bodyElement.style = "background: white";
+            bodyElement.style = "background: darkgray";
             //sendRand(Math.pow(self.vol / self.peak_volume, 5));*/
             if (drawing) hueShift += self.rms;
         } else {
@@ -336,7 +336,7 @@ function draw() {
             ctx.fill();
             drawScene();//0.79ms
         }
-        if (pulse) sendPulse();
+        if (false && pulse) sendPulse();
         else sendPattern01();
         pulse = false;
     }

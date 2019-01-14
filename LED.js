@@ -71,7 +71,7 @@ var handleSuccess = function (stream) {
             //sendRand(Math.pow(self.vol / self.peak_volume, 5));*/
             if (drawing) hueShift += self.rms;
         }
-        else { if (drawing) bodyElement.style = "background: black" };
+        else { if (drawing) bodyElement.style = "background: black";}
     }
     var input = context.createMediaStreamSource(stream);
     input.connect(analyser);
