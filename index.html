@@ -14,13 +14,55 @@
 			position:absolute;
 		}
 	</style>
+
+	<script id="shader-vs" type="x-webgl-shader/x-vertex">
+		uniform mat3 uTransformToClipSpace;
+
+		attribute vec2 aPosition;
+		attribute float aR;
+		attribute vec3 aColor;
+
+		varying vec3 vColor;
+
+		void main(void) {
+			vec2 p = aPosition;
+			vec2 pos = (uTransformToClipSpace * vec3(aPosition, 1.0)).xy;
+
+			float radius = aR;
+			vColor = aColor;
+
+			gl_Position = vec4(pos, 0.0, 1.0);
+			gl_PointSize = radius * 2.0;
+		}
+	</script>
+
+	<script id="shader-fs" type="x-webgl-shader/x-fragment">
+		varying mediump vec3 vColor;
+
+		void main(void) {
+			const lowp float ALPHA = 0.75;
+
+			lowp vec2 pos = gl_PointCoord - vec2(0.5, 0.5);
+			lowp float dist_squared = dot(pos, pos);
+			lowp float alpha;
+
+			if (dist_squared < 0.25) {
+				alpha = ALPHA;
+			} else {
+				alpha = 0.0;
+			}
+
+			gl_FragColor = vec4(vColor, alpha);
+		}
+	</script>
 </head>
 
 <body id="body" style = "margin:0 ;background: black">
-	<canvas id="cvs"></canvas>
-	<script src="https://netbeast.github.io/colorsys/browser.js"></script>
-	<script src="https://killercrush.github.io/music-tempo/dist/browser/music-tempo.min.js"></script>
-	<script src="LED.js"></script>
+	<canvas id="cvs" style="height:33%"></canvas>
+	<canvas id="canvas"></canvas>
+	<script src="https://luksab.github.io/JSLib/JSLib.js"></script>
+	<script src="https://luksab.github.io/JSLib/JSColor.js"></script>
+	<script src="WebGlLED.js"></script>
 </body>
 
 </html>
